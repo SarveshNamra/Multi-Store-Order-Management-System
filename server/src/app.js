@@ -3,6 +3,10 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 
+import errorMiddleware from "./middleware/error.middleware.js";
+import notFoundMiddleware from "./middleware/notFound.middleware.js";
+import orderRoutes from "./routes/order.route.js";
+
 const app = express();
 
 app.use(cors({
@@ -26,14 +30,9 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error(err);
+app.use("/api/v1/orders", orderRoutes);
 
-  return res.status(err.statusCode || 500).json({
-    success: false,
-    message: err.message || "Internal Server Error"
-  });
-});
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 export default app;

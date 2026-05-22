@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -12,36 +7,25 @@ datasource db {
   provider = "postgresql"
 }
 
-enum OrderStatus {
-  PLACED
-  PREPARING
-  COMPLETED
-}
-
 model User {
-  id       String @id @default(cuid())
-  email    String @unique
-  password String
-
-  orders Order[]
-
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
+  orders    Order[]
 
   @@index([createdAt])
 }
 
 model Order {
-  id      String @id @default(cuid())
-  storeId String
-  userId  String
-
-  theTotalAmount Decimal     @db.Decimal(10, 2)
+  id             String      @id @default(cuid())
+  storeId        String
   status         OrderStatus @default(PLACED)
-
-  createdAt DateTime @default(now())
-
-  user  User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items OrderItem[]
+  createdAt      DateTime    @default(now())
+  theTotalAmount Decimal     @db.Decimal(10, 2)
+  userId         String?
+  user           User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items          OrderItem[]
 
   @@index([storeId])
   @@index([createdAt])
@@ -50,13 +34,17 @@ model Order {
 }
 
 model OrderItem {
-  id String @id @default(cuid())
-
+  id       String @id @default(cuid())
   itemId   String
+  orderId  String
   quantity Int
-
-  orderId String
-  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([orderId])
+}
+
+enum OrderStatus {
+  PLACED
+  PREPARING
+  COMPLETED
 }
