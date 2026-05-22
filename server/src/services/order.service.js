@@ -1,4 +1,5 @@
 import prisma from "../config/db.js";
+import { emitOrderCreated, emitOrderStatusUpdated } from "../sockets/order.socket.js";
 
 // Service functions for Order management
 export const createOrder = async (payload) => {
@@ -34,7 +35,7 @@ export const createOrder = async (payload) => {
     const order = await prisma.order.create({
         data: {
             storeId,
-            //userId,
+            userId,
             theTotalAmount: Number(theTotalAmount),
             status,
 
@@ -46,16 +47,19 @@ export const createOrder = async (payload) => {
             },
         },
 
-        // include: {
-        //     items: true,
-        //     // user: {
-        //     //     select: {
-        //     //         id: true,
-        //     //         email: true,
-        //     //     },
-        //     // },
-        // },
+        include: {
+            items: true,
+            user: {
+                select: {
+                    id: true,
+                    email: true,
+                },
+            },
+        },
     });
+
+    // Emit order created event to the store room
+    emitOrderCreated(storeId, order);
 
     return order;
 };
@@ -76,15 +80,15 @@ export const getOrdersByStore = async ({ storeId, page = 1, limit = 10 }) => {
                 storeId,
             },
 
-            // include: {
-            //     items: true,
-            //     // user: {
-            //     //     select: {
-            //     //         id: true,
-            //     //         email: true,
-            //     //     },
-            //     // },
-            // },
+            include: {
+                items: true,
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                    },
+                },
+            },
 
             orderBy: {
                 createdAt: "desc",
@@ -138,16 +142,19 @@ export const updateOrderStatus = async ( orderId, status ) => {
             status,
         },
 
-        // include: {
-        //     items: true,
-        //     // user: {
-        //     //     select: {
-        //     //         id: true,
-        //     //         email: true,
-        //     //     },
-        //     // },
-        // },
+        include: {
+            items: true,
+            user: {
+                select: {
+                    id: true,
+                    email: true,
+                },
+            },
+        },
     });
 
+    // Emit order status updated event to the store room
+    emitOrderStatusUpdated(existingOrder.storeId, updatedOrder);
+    
     return updatedOrder;
 };
