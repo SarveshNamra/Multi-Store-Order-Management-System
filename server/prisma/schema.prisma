@@ -7,6 +7,12 @@ datasource db {
   provider = "postgresql"
 }
 
+enum OrderStatus {
+  PLACED
+  PREPARING
+  COMPLETED
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -43,8 +49,21 @@ model OrderItem {
   @@index([orderId])
 }
 
-enum OrderStatus {
-  PLACED
-  PREPARING
-  COMPLETED
+model OrderArchive {
+  id              String      @id @default(cuid())
+  storeId         String
+  userId          String
+
+  theTotalAmount  Decimal     @db.Decimal(10, 2)
+
+  status          OrderStatus
+
+  createdAt       DateTime
+  archivedAt      DateTime    @default(now())
+  items           Json
+
+  @@index([storeId])
+  @@index([createdAt])
+  @@index([storeId, createdAt])
+  @@index([archivedAt])
 }

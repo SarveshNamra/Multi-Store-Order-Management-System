@@ -5,7 +5,10 @@ import morgan from "morgan";
 
 import errorMiddleware from "./middleware/error.middleware.js";
 import notFoundMiddleware from "./middleware/notFound.middleware.js";
+
 import orderRoutes from "./routes/order.route.js";
+import archiveRoutes from "./routes/archive.route.js";
+import analyticsRoutes from "./routes/analytics.route.js";
 
 const app = express();
 
@@ -31,6 +34,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/v1/orders", orderRoutes);
+app.use("/api/v1", archiveRoutes);
+app.use("/api/v1/analytics", analyticsRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

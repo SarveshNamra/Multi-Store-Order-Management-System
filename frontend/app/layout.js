@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 
                     {/* Main Content */}
 
-                    <div className="flex flex-1 flex-col md:ml-72">
+                    <div className="flex flex-1 flex-col md:ml-64">
                         {/* Navbar */}
 
                         <Navbar />

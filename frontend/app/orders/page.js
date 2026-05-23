@@ -105,11 +105,11 @@ const OrdersPage = () => {
             {/* Header */}
 
             <div>
-                <h1 className="text-4xl font-bold text-orange-900 text-center">
+                <h1 className="text-3xl font-bold text-orange-900 text-center">
                     Orders
                 </h1>
 
-                <p className="mt-2 text-2xl text-gray-500 text-center">
+                <p className="mt-1 text-1xl text-gray-500 text-center">
                     Manage and monitor all store orders.
                 </p>
             </div>

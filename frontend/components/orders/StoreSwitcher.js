@@ -39,11 +39,11 @@ const StoreSwitcher = () => {
             {/* Left Content */}
 
             <div>
-                <h2 className="text-3xl font-semibold text-yellow-900">
+                <h2 className="text-2xl font-semibold text-orange-900">
                     Store Selection
                 </h2>
 
-                <p className="mt-1 text-2xl text-gray-500">
+                <p className="mt-1 text-sm text-gray-500">
                     Switch between stores to view
                     realtime orders.
                 </p>

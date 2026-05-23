@@ -124,7 +124,7 @@ const CreateOrderForm = () => {
 
                     <input type="text" name="storeId" value={formData.storeId} onChange={handleChange} placeholder="Enter store ID"
                         required
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-black"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-black outline-none transition focus:border-black"
                     />
                 </div>
 
@@ -137,7 +137,7 @@ const CreateOrderForm = () => {
 
                     <input type="text" name="itemId" value={formData.itemId} onChange={handleChange} placeholder="Enter item ID"
                         required
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-black"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-black outline-none transition focus:border-black"
                     />
                 </div>
 
@@ -150,7 +150,7 @@ const CreateOrderForm = () => {
 
                     <input type="number" name="quantity" min="1" value={formData.quantity} onChange={handleChange}
                         required
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-black"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-black outline-none transition focus:border-black"
                     />
                 </div>
 
@@ -163,7 +163,7 @@ const CreateOrderForm = () => {
 
                     <input type="number" name="theTotalAmount" min="1" value={ formData.theTotalAmount } onChange={handleChange} placeholder="Enter total amount"
                         required
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-black"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-black outline-none transition focus:border-black"
                     />
                 </div>
 
